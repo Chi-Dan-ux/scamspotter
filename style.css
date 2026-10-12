@@ -141,11 +141,28 @@ input:focus-visible {
 }
 
 /* ===== Scam cards ===== */
-.scam-list {
+.scam-list { padding-block: 0.5rem 2rem; }
+
+.scam-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-block: 0.5rem 2rem;
+}
+
+.result-count {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+  min-height: 1.4rem;
+}
+
+.no-results {
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 1.5rem 1rem;
+  text-align: center;
 }
 
 .scam-card {
