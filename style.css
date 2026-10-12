@@ -1,0 +1,223 @@
+/* ===== Colour tokens (all text meets 4.5:1 contrast) ===== */
+:root {
+  --bg: #000000;
+  --card: #1c1c1c;
+  --chip: #1c1c1c;
+  --border: #2e2e2e;
+  --text: #f5f5f5;          /* on #000: 19:1 */
+  --text-muted: #a8a8a8;    /* on #1c1c1c: 7:1 */
+  --accent: #0064e0;        /* white text on it: 5.4:1 */
+  --accent-text: #3d8bff;   /* blue text on #000: 6.3:1 */
+  --high: #ff5a5f;          /* black text on it: 6.3:1 */
+  --medium: #f5a623;        /* black text on it: 10:1 */
+  --radius: 16px;
+}
+
+/* ===== Base (mobile first, no media query) ===== */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.container { padding-inline: 1rem; }
+
+/* Visible focus for keyboard users */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: 3px;
+}
+
+/* Skip link: hidden until focused */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  z-index: 10;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ===== Header / nav ===== */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+}
+.logo {
+  color: var(--text);
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+.logo span { color: var(--accent-text); }
+
+.watchlist-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* ===== Hero: heading, search, filters ===== */
+.hero { padding-block: 0.5rem 1rem; }
+.hero h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  max-width: 14em;
+}
+
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.search-form input {
+  width: 100%;
+  background: var(--card);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem 0.9rem 3rem;
+  font-size: 1rem;
+}
+.search-form input::placeholder { color: var(--text-muted); }
+.search-form input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(61, 139, 255, 0.5);
+}
+
+.form-message {
+  min-height: 1.5rem;
+  margin: 0.4rem 0 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Filter chips: scroll sideways on small screens */
+.filters {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+
+.chip {
+  flex: 0 0 auto;
+  background: var(--chip);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ===== Scam cards ===== */
+.scam-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-block: 0.5rem 2rem;
+}
+
+.scam-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+.card-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  background: #262626;
+  border-radius: 12px;
+  color: var(--text);
+}
+.card-title {
+  flex: 1;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  align-self: center;
+}
+
+.tag {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #000;
+}
+.tag-high { background: var(--high); }
+.tag-medium { background: var(--medium); }
+
+.card-text {
+  color: var(--text-muted);
+  margin: 0.9rem 0 1rem;
+}
+
+.btn-details {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-details:hover { background: #0a74ff; }
+
+/* ===== Footer ===== */
+.site-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 1.5rem 1rem 2rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ===== Tablet and up (we'll add this next) ===== */
+/* @media (min-width: 768px) { ... } */
+/* ===== Desktop (we'll add this next) ===== */
+/* @media (min-width: 992px) { ... } */
