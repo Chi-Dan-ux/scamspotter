@@ -110,7 +110,7 @@ function createCard(scam) {
   button.textContent = "View details ";
   const arrow = document.createElement("span");
   arrow.setAttribute("aria-hidden", "true");
-  arrow.textContent = "â";
+  arrow.textContent = "\u2192"; // the arrow symbol, written as a code so it always displays correctly
   button.append(arrow);
 
   card.append(top, text, button);
@@ -205,3 +205,4 @@ filterButtons.forEach(function (button) {
 
 // ===== 9. START =====
 render();
+
