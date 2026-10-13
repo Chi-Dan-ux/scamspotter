@@ -8,7 +8,7 @@ messages and calls before they lose money.
 HTML, CSS, Bootstrap, JavaScript (no frameworks or plugins for the logic)
 
 ## Live site
-(add your GitHub Pages link here later)
+https://chi-dan-ux.github.io/scamspotter/
 
 ## How to run
 1. Clone this repo
