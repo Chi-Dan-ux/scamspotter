@@ -234,7 +234,57 @@ input:focus-visible {
   border-top: 1px solid var(--border);
 }
 
-/* ===== Tablet and up (we'll add this next) ===== */
-/* @media (min-width: 768px) { ... } */
-/* ===== Desktop (we'll add this next) ===== */
-/* @media (min-width: 992px) { ... } */
+/* ===== Tablet and up (768px+): 2 columns ===== */
+@media (min-width: 768px) {
+  .logo { font-size: 1.9rem; }
+
+  .hero { padding-block: 1.5rem 1.5rem; }
+  .hero h1 {
+    font-size: 2.5rem;
+    max-width: 16em;
+  }
+  .search-form { max-width: 640px; }
+
+  /* Chips wrap instead of scrolling sideways */
+  .filters { flex-wrap: wrap; overflow-x: visible; }
+
+  .scam-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  /* Equal-height cards with the button pinned to the bottom */
+  .scam-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-text { flex: 1; }
+
+  .no-results { grid-column: 1 / -1; }
+}
+
+/* ===== Desktop (992px+): 3 columns ===== */
+@media (min-width: 992px) {
+  .nav-bar { padding-block: 1.5rem; }
+  .hero h1 { font-size: 3rem; }
+
+  .scam-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .scam-card { transition: transform 0.15s ease, border-color 0.15s ease; }
+  .scam-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+  .chip:hover { border-color: var(--accent-text); }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .scam-card { transition: none; }
+  .scam-card:hover { transform: none; }
+}
+
