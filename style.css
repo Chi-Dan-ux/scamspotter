@@ -98,6 +98,7 @@ input:focus-visible {
   border-radius: var(--radius);
   padding: 0.9rem 1rem 0.9rem 3rem;
   font-size: 1rem;
+  text-overflow: ellipsis;
 }
 .search-form input::placeholder { color: var(--text-muted); }
 .search-form input:focus {
@@ -116,12 +117,10 @@ input:focus-visible {
 /* Filter chips: scroll sideways on small screens */
 .filters {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.6rem;
-  overflow-x: auto;
   padding-bottom: 0.5rem;
-  scrollbar-width: none;
 }
-.filters::-webkit-scrollbar { display: none; }
 
 .chip {
   flex: 0 0 auto;
@@ -129,7 +128,7 @@ input:focus-visible {
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
 }
@@ -245,9 +244,6 @@ input:focus-visible {
   }
   .search-form { max-width: 640px; }
 
-  /* Chips wrap instead of scrolling sideways */
-  .filters { flex-wrap: wrap; overflow-x: visible; }
-
   .scam-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -287,4 +283,3 @@ input:focus-visible {
   .scam-card { transition: none; }
   .scam-card:hover { transform: none; }
 }
-
