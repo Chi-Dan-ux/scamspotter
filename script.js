@@ -1,51 +1,6 @@
-// ===== 1. DATA =====
-// Week 1: scams live in an array. In Week 2 this moves to a JSON file.
-const scams = [
-  {
-    id: 1,
-    name: "Fake Bank Alert SMS",
-    channel: "sms",
-    severity: "High",
-    description: "Scammers send urgent texts about account issues to steal your login details and money."
-  },
-  {
-    id: 2,
-    name: "Wrong Number WhatsApp Scam",
-    channel: "whatsapp",
-    severity: "Medium",
-    description: "Scammers use random numbers to start conversations and gain your trust, then ask for money or personal information."
-  },
-  {
-    id: 3,
-    name: "Fake Delivery Notice",
-    channel: "email",
-    severity: "Medium",
-    description: "You receive a fake message about a missed delivery, with a link to pay a fee or update your details."
-  },
-  {
-    id: 4,
-    name: "Account Suspended Email",
-    channel: "email",
-    severity: "High",
-    description: "An email claims your account will be closed unless you click a link and confirm your password."
-  },
-  {
-    id: 5,
-    name: "Tech Support Phone Call",
-    channel: "call",
-    severity: "High",
-    description: "A caller pretends to be from a tech company, says your device has a virus, and asks for remote access or payment."
-  },
-  {
-    id: 6,
-    name: "Fake Job Offer",
-    channel: "whatsapp",
-    severity: "Medium",
-    description: "A message offers easy work from home, then asks you to pay a registration fee before you can start."
-  }
-];
+// ===== 1. SETTINGS =====
+const DATA_URL = "data/scams.json";
 
-// Names shown to the user for each channel
 const channelLabels = {
   sms: "SMS",
   email: "Email",
@@ -69,84 +24,115 @@ const filterButtons = document.querySelectorAll(".chip");
 const container = document.getElementById("scam-container");
 const resultCount = document.getElementById("result-count");
 const noResults = document.getElementById("no-results");
+const statusBox = document.getElementById("status");
 
 // ===== 3. STATE =====
-// The two things the user can change
-let searchText = "";
-let activeFilter = "all";
+// All the things that can change live here, in one place.
+let scams = [];            // the loaded data
+let searchText = "";       // what the user typed
+let activeFilter = "all";  // which chip is selected
 
-// ===== 4. BUILD ONE CARD =====
-// One function that builds a card from one scam. Reused for every card.
+// ===== 4. COMPONENTS =====
+// Each function builds one reusable piece of the page from the data it is given.
+
+function createIcon(channel) {
+  const icon = document.createElement("div");
+  icon.className = "card-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.innerHTML = channelIcons[channel] || "";
+  return icon;
+}
+
+function createTag(severity) {
+  const tag = document.createElement("span");
+  tag.className = "tag tag-" + severity.toLowerCase();
+  tag.textContent = severity;
+  return tag;
+}
+
+function createButton(label, className, onClick) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = className;
+  button.textContent = label;
+  if (onClick) {
+    button.addEventListener("click", onClick);
+  }
+  return button;
+}
+
 function createCard(scam) {
   const card = document.createElement("article");
   card.className = "scam-card";
   card.dataset.channel = scam.channel;
 
-  const top = document.createElement("div");
-  top.className = "card-top";
-
-  const icon = document.createElement("div");
-  icon.className = "card-icon";
-  icon.setAttribute("aria-hidden", "true");
-  icon.innerHTML = channelIcons[scam.channel];
-
   const title = document.createElement("h3");
   title.className = "card-title";
   title.textContent = scam.name;
 
-  const tag = document.createElement("span");
-  tag.className = "tag tag-" + scam.severity.toLowerCase();
-  tag.textContent = scam.severity;
-
-  top.append(icon, title, tag);
+  const top = document.createElement("div");
+  top.className = "card-top";
+  top.append(createIcon(scam.channel), title, createTag(scam.severity));
 
   const text = document.createElement("p");
   text.className = "card-text";
   text.textContent = scam.description;
 
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "btn-details";
-  button.textContent = "View details ";
+  const details = createButton("View details ", "btn-details");
   const arrow = document.createElement("span");
   arrow.setAttribute("aria-hidden", "true");
-  arrow.textContent = "\u2192"; // the arrow symbol, written as a code so it always displays correctly
-  button.append(arrow);
+  arrow.textContent = "\u2192";
+  details.append(arrow);
 
-  card.append(top, text, button);
+  card.append(top, text, details);
   return card;
 }
 
-// ===== 5. DECIDE WHICH SCAMS TO SHOW =====
+// ===== 5. STATUS MESSAGES (loading, empty, error) =====
+function clearStatus() {
+  statusBox.hidden = true;
+  statusBox.replaceChildren();
+}
+
+function showStatus(type, message, retryHandler) {
+  statusBox.className = "status status-" + type;
+  statusBox.replaceChildren();
+
+  const text = document.createElement("p");
+  text.textContent = message;
+  statusBox.append(text);
+
+  // The error state gets a Retry button
+  if (retryHandler) {
+    statusBox.append(createButton("Retry", "btn-retry", retryHandler));
+  }
+  statusBox.hidden = false;
+}
+
+// ===== 6. DECIDE WHICH SCAMS TO SHOW =====
 function getVisibleScams() {
-  // Lowercase so "PHISHING" and "phishing" match
   const query = searchText.toLowerCase();
 
   return scams.filter(function (scam) {
     const matchesFilter = activeFilter === "all" || scam.channel === activeFilter;
-
-    // Search the name, the description and the channel name
     const searchableText = (
-      scam.name + " " + scam.description + " " + channelLabels[scam.channel]
+      scam.name + " " + scam.description + " " + (channelLabels[scam.channel] || "")
     ).toLowerCase();
     const matchesSearch = query === "" || searchableText.includes(query);
-
     return matchesFilter && matchesSearch;
   });
 }
 
-// ===== 6. DRAW THE PAGE =====
+// ===== 7. DRAW THE LIST =====
 function render() {
   const visible = getVisibleScams();
 
-  container.innerHTML = "";
+  container.replaceChildren();
   visible.forEach(function (scam) {
     container.append(createCard(scam));
   });
 
   if (visible.length === 0) {
-    // Empty result: tell the user what happened and how to fix it.
-    // textContent (not innerHTML) keeps whatever they typed safe.
     noResults.textContent = searchText
       ? 'No scams found for "' + searchText + '". Try another word or choose "All".'
       : "No scams found for this channel.";
@@ -154,31 +140,77 @@ function render() {
     resultCount.textContent = "";
   } else {
     noResults.hidden = true;
-    resultCount.textContent =
-      "Showing " + visible.length + " of " + scams.length + " scams";
+    resultCount.textContent = "Showing " + visible.length + " of " + scams.length + " scams";
   }
 }
 
-// ===== 7. SEARCH =====
-// Clean what the user typed: trim spaces at the start and end
+// ===== 8. LOAD THE DATA =====
+// Only keep entries that have everything a card needs, so one bad entry cannot break the page.
+function isValidScam(item) {
+  return (
+    item &&
+    typeof item.name === "string" &&
+    typeof item.description === "string" &&
+    typeof item.severity === "string" &&
+    Object.prototype.hasOwnProperty.call(channelLabels, item.channel)
+  );
+}
+
+async function loadScams() {
+  // Loading state
+  container.replaceChildren();
+  noResults.hidden = true;
+  resultCount.textContent = "";
+  showStatus("loading", "Loading scams...");
+
+  try {
+    const response = await fetch(DATA_URL);
+    if (!response.ok) {
+      throw new Error("Server answered with status " + response.status);
+    }
+
+    const data = await response.json();
+    if (!Array.isArray(data)) {
+      throw new Error("Data is not a list");
+    }
+
+    scams = data.filter(isValidScam);
+    clearStatus();
+
+    // Empty state: the file loaded but has nothing usable in it
+    if (scams.length === 0) {
+      showStatus("empty", "No scams are available yet. Please check back soon.");
+      return;
+    }
+
+    render();
+  } catch (error) {
+    // Error state, with a way to try again
+    console.error("Could not load scams:", error);
+    showStatus(
+      "error",
+      "We could not load the scams. Check your connection and try again.",
+      loadScams
+    );
+  }
+}
+
+// ===== 9. SEARCH =====
 function cleanInput(value) {
   return value.trim();
 }
 
-// Runs while typing
 searchInput.addEventListener("input", function () {
   searchText = cleanInput(searchInput.value);
   searchMessage.textContent = "";
   render();
 });
 
-// Runs when the user presses Enter / submits the search
 searchForm.addEventListener("submit", function (event) {
-  event.preventDefault(); // stop the page from reloading
+  event.preventDefault();
   searchText = cleanInput(searchInput.value);
 
   if (searchText === "") {
-    // Empty or spaces only
     searchInput.value = "";
     searchMessage.textContent = "Please type a keyword to search. Showing all scams.";
   } else {
@@ -187,12 +219,11 @@ searchForm.addEventListener("submit", function (event) {
   render();
 });
 
-// ===== 8. FILTER =====
+// ===== 10. FILTER =====
 filterButtons.forEach(function (button) {
   button.addEventListener("click", function () {
     activeFilter = button.dataset.filter;
 
-    // Update the look and the screen-reader state of every chip
     filterButtons.forEach(function (chip) {
       const isSelected = chip === button;
       chip.classList.toggle("is-active", isSelected);
@@ -203,6 +234,7 @@ filterButtons.forEach(function (button) {
   });
 });
 
-// ===== 9. START =====
-render();
+// ===== 11. START =====
+loadScams();
+
 
