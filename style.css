@@ -224,6 +224,30 @@ input:focus-visible {
 }
 .btn-details:hover { background: #0a74ff; }
 
+/* ===== Loading, empty and error messages ===== */
+.status {
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.status p { margin: 0 0 0.75rem; }
+.status p:last-child { margin-bottom: 0; }
+.status-error { border-color: var(--high); }
+
+.btn-retry {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-retry:focus-visible { outline: 3px solid var(--accent-text); outline-offset: 3px; }
+
 /* ===== Footer ===== */
 .site-footer {
   text-align: center;
