@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "name": "Fake Bank Alert SMS",
+    "channel": "sms",
+    "severity": "High",
+    "description": "Scammers send urgent texts about account issues to steal your login details and money."
+  },
+  {
+    "id": 2,
+    "name": "Wrong Number WhatsApp Scam",
+    "channel": "whatsapp",
+    "severity": "Medium",
+    "description": "Scammers use random numbers to start conversations and gain your trust, then ask for money or personal information."
+  },
+  {
+    "id": 3,
+    "name": "Fake Delivery Notice",
+    "channel": "sms",
+    "severity": "Medium",
+    "description": "You receive a fake message about a missed delivery, with a link to pay a fee or update your details."
+  },
+  {
+    "id": 4,
+    "name": "Fake Tech Support Call",
+    "channel": "call",
+    "severity": "High",
+    "description": "Scammers pretend to be from tech support, tricking you into giving remote access or payment for fake repairs."
+  },
+  {
+    "id": 5,
+    "name": "Phishing Email",
+    "channel": "email",
+    "severity": "High",
+    "description": "Fraudulent emails that look real, aiming to steal your passwords, financial details or personal information."
+  },
+  {
+    "id": 6,
+    "name": "Impersonation Scam",
+    "channel": "whatsapp",
+    "severity": "Medium",
+    "description": "Scammers pretend to be a friend, company or official account to get you to send money or share sensitive data."
+  },
+  {
+    "id": 7,
+    "name": "Prize / Lottery Scam",
+    "channel": "call",
+    "severity": "Medium",
+    "description": "You're told you've won a prize, but you need to pay a fee or share details to claim it."
+  },
+  {
+    "id": 8,
+    "name": "Fake Job Offer",
+    "channel": "whatsapp",
+    "severity": "High",
+    "description": "Scammers promise easy remote jobs and high pay, then ask for upfront fees or personal information."
+  },
+  {
+    "id": 9,
+    "name": "Account Suspension Scam",
+    "channel": "email",
+    "severity": "Medium",
+    "description": "You get a message saying your account will be suspended unless you verify your details immediately."
+  }
+]
