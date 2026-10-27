@@ -14,41 +14,71 @@
 
   <header class="site-header">
     <nav class="container nav-bar" aria-label="Main navigation">
-      <a class="logo" href="index.html">Scam<span>Spotter</span></a>
-      <a class="watchlist-link" href="#watchlist">
+      <a class="logo" href="#/">Scam<span>Spotter</span></a>
+      <a class="watchlist-link" id="watchlist-link" href="#/watchlist">
         <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
         <span>Watchlist</span>
+        <span id="watchlist-badge" class="badge-count" hidden>0</span>
       </a>
     </nav>
   </header>
 
   <main id="main-content" class="container">
 
-    <section class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">Spot the scam before it spots you</h1>
+    <!-- Loading, empty and error messages for the whole app -->
+    <div id="status" class="status" role="status" aria-live="polite" hidden></div>
 
-      <form class="search-form" role="search" id="search-form" novalidate>
-        <label for="search-input" class="visually-hidden">Search scams</label>
-        <svg aria-hidden="true" class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="search-input" type="search" placeholder="Search scams (e.g. bank)" autocomplete="off">
-      </form>
-      <p id="search-message" class="form-message" role="status" aria-live="polite"></p>
+    <!-- View 1: list of scams -->
+    <div id="view-list" data-view="list">
+      <section class="hero" aria-labelledby="hero-title">
+        <h1 id="hero-title" tabindex="-1">Spot the scam before it spots you</h1>
 
-      <div class="filters" role="group" aria-label="Filter scams by channel">
-        <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" class="chip" data-filter="sms" aria-pressed="false">SMS</button>
-        <button type="button" class="chip" data-filter="email" aria-pressed="false">Email</button>
-        <button type="button" class="chip" data-filter="whatsapp" aria-pressed="false">WhatsApp</button>
-        <button type="button" class="chip" data-filter="call" aria-pressed="false">Phone Call</button>
+        <form class="search-form" role="search" id="search-form" novalidate>
+          <label for="search-input" class="visually-hidden">Search scams</label>
+          <svg aria-hidden="true" class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="search-input" type="search" placeholder="Search scams (e.g. bank)" autocomplete="off">
+        </form>
+        <p id="search-message" class="form-message" role="status" aria-live="polite"></p>
+
+        <div class="filters" role="group" aria-label="Filter scams by channel">
+          <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-filter="sms" aria-pressed="false">SMS</button>
+          <button type="button" class="chip" data-filter="email" aria-pressed="false">Email</button>
+          <button type="button" class="chip" data-filter="whatsapp" aria-pressed="false">WhatsApp</button>
+          <button type="button" class="chip" data-filter="call" aria-pressed="false">Phone Call</button>
+        </div>
+      </section>
+
+      <section class="scam-list" aria-labelledby="list-title">
+        <h2 id="list-title" class="visually-hidden">Common scams</h2>
+        <p id="result-count" class="result-count" role="status" aria-live="polite"></p>
+        <div id="scam-container" class="scam-container"></div>
+        <p id="no-results" class="no-results" role="status" hidden></p>
+      </section>
+    </div>
+
+    <!-- View 2: one scam in detail -->
+    <section id="view-detail" data-view="detail" class="detail" aria-labelledby="detail-title" hidden>
+      <a class="back-link" href="#/"><span aria-hidden="true">&larr;</span> All scams</a>
+      <article id="detail-content"></article>
+    </section>
+
+    <!-- View 3: saved scams -->
+    <section id="view-watchlist" data-view="watchlist" class="watchlist" aria-labelledby="watchlist-title" hidden>
+      <h1 id="watchlist-title" tabindex="-1">My Watchlist</h1>
+      <p id="watchlist-count" class="result-count" role="status" aria-live="polite"></p>
+      <div id="watchlist-container" class="scam-container"></div>
+      <div id="watchlist-empty" class="status" hidden>
+        <p>You have not saved any scams yet. Use the Save button on a scam to add it here.</p>
+        <a class="btn-retry" href="#/">Browse scams</a>
       </div>
     </section>
 
-    <section class="scam-list" aria-labelledby="list-title">
-      <h2 id="list-title" class="visually-hidden">Common scams</h2>
-      <p id="result-count" class="result-count" role="status" aria-live="polite"></p>
-      <div id="scam-container" class="scam-container"></div>
-      <div id="status" class="status" role="status" aria-live="polite" hidden></div>
-      <p id="no-results" class="no-results" role="status" hidden></p>
+    <!-- View 4: page not found -->
+    <section id="view-notfound" data-view="notfound" class="notfound" aria-labelledby="notfound-title" hidden>
+      <h1 id="notfound-title" tabindex="-1">Page not found</h1>
+      <p id="notfound-message">We could not find the page you were looking for.</p>
+      <a class="btn-retry" href="#/">Back to all scams</a>
     </section>
 
   </main>
@@ -60,3 +90,4 @@
   <script src="script.js" charset="UTF-8"></script>
 </body>
 </html>
+
