@@ -1,0 +1,25 @@
+{
+  "name": "scamspotter",
+  "version": "1.0.0",
+  "description": "A quick-reference guide to common online scams, built for everyday internet users and small business owners who want to recognise scam messages and calls before they lose money.",
+  "main": "script.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chi-Dan-ux/scamspotter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Chi-Dan-ux/scamspotter/issues"
+  },
+  "homepage": "https://github.com/Chi-Dan-ux/scamspotter#readme",
+  "devDependencies": {
+    "jsdom": "^30.1.3",
+    "vitest": "^5.0.5"
+  }
+}
