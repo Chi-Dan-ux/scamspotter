@@ -4,62 +4,116 @@
     "name": "Fake Bank Alert SMS",
     "channel": "sms",
     "severity": "High",
-    "description": "Scammers send urgent texts about account issues to steal your login details and money."
+    "description": "Scammers send urgent texts about account issues to steal your login details and money.",
+    "redFlags": [
+      "Urgent message about a blocked or suspicious account",
+      "A link to verify your details or a number to call back",
+      "Sent from an unknown number or a name that only looks like your bank"
+    ],
+    "whatToDo": "Do not click the link or reply. Contact your bank using the number on your card or in its official app, then delete the message and report it as spam."
   },
   {
     "id": 2,
     "name": "Wrong Number WhatsApp Scam",
     "channel": "whatsapp",
     "severity": "Medium",
-    "description": "Scammers use random numbers to start conversations and gain your trust, then ask for money or personal information."
+    "description": "Scammers use random numbers to start conversations and gain your trust, then ask for money or personal information.",
+    "redFlags": [
+      "A message from an unknown number pretending to have the wrong contact",
+      "The stranger quickly turns friendly and keeps the chat going",
+      "Soon asks for money, gift cards, an investment or a verification code"
+    ],
+    "whatToDo": "Do not share personal details or money. Block and report the number in WhatsApp, and never send anyone a verification code."
   },
   {
     "id": 3,
     "name": "Fake Delivery Notice",
     "channel": "sms",
     "severity": "Medium",
-    "description": "You receive a fake message about a missed delivery, with a link to pay a fee or update your details."
+    "description": "You receive a fake message about a missed delivery, with a link to pay a fee or update your details.",
+    "redFlags": [
+      "You are not expecting a package",
+      "A link asking you to pay a small fee or confirm your address",
+      "A web address that looks slightly different from the real courier"
+    ],
+    "whatToDo": "Do not tap the link. Check the order directly in the courier's official app or website, then delete the message."
   },
   {
     "id": 4,
     "name": "Fake Tech Support Call",
     "channel": "call",
     "severity": "High",
-    "description": "Scammers pretend to be from tech support, tricking you into giving remote access or payment for fake repairs."
+    "description": "Scammers pretend to be from tech support, tricking you into giving remote access or payment for fake repairs.",
+    "redFlags": [
+      "A call you did not ask for, claiming your device has a virus",
+      "Pressure to act immediately",
+      "A request for remote access to your device, or payment by gift card or transfer"
+    ],
+    "whatToDo": "Hang up. Real tech companies do not cold-call about viruses. Never give remote access. If you already did, disconnect from the internet and change your passwords."
   },
   {
     "id": 5,
     "name": "Phishing Email",
     "channel": "email",
     "severity": "High",
-    "description": "Fraudulent emails that look real, aiming to steal your passwords, financial details or personal information."
+    "description": "Fraudulent emails that look real, aiming to steal your passwords, financial details or personal information.",
+    "redFlags": [
+      "The sender address does not match the real company",
+      "A generic greeting and spelling mistakes",
+      "Links or attachments you were not expecting, with a request to log in"
+    ],
+    "whatToDo": "Do not click links or open attachments. Type the company's web address yourself to check your account, and report the email as phishing."
   },
   {
     "id": 6,
     "name": "Impersonation Scam",
     "channel": "whatsapp",
     "severity": "Medium",
-    "description": "Scammers pretend to be a friend, company or official account to get you to send money or share sensitive data."
+    "description": "Scammers pretend to be a friend, company or official account to get you to send money or share sensitive data.",
+    "redFlags": [
+      "A friend or company contacts you from a new number or account",
+      "An urgent request for money or personal data",
+      "The person avoids a call or video chat to prove who they are"
+    ],
+    "whatToDo": "Contact the real person on their usual number, or the company through its official channel, before sending anything."
   },
   {
     "id": 7,
     "name": "Prize / Lottery Scam",
     "channel": "call",
     "severity": "Medium",
-    "description": "You're told you've won a prize, but you need to pay a fee or share details to claim it."
+    "description": "You're told you've won a prize, but you need to pay a fee or share details to claim it.",
+    "redFlags": [
+      "You are told you won a contest you never entered",
+      "You must pay a fee or tax to collect the prize",
+      "Pressure to act quickly and keep it secret"
+    ],
+    "whatToDo": "Do not pay or share your details. Real prizes never require you to pay first. Hang up and block the number."
   },
   {
     "id": 8,
     "name": "Fake Job Offer",
     "channel": "whatsapp",
     "severity": "High",
-    "description": "Scammers promise easy remote jobs and high pay, then ask for upfront fees or personal information."
+    "description": "Scammers promise easy remote jobs and high pay, then ask for upfront fees or personal information.",
+    "redFlags": [
+      "Very high pay for very little work",
+      "You are asked to pay for training, registration or equipment",
+      "The recruiter only uses chat apps and avoids a proper interview"
+    ],
+    "whatToDo": "Do not pay to get a job. Check the company on its official website, look for reviews, and walk away if they ask for money."
   },
   {
     "id": 9,
     "name": "Account Suspension Scam",
     "channel": "email",
     "severity": "Medium",
-    "description": "You get a message saying your account will be suspended unless you verify your details immediately."
+    "description": "You get a message saying your account will be suspended unless you verify your details immediately.",
+    "redFlags": [
+      "A message saying your account will be closed unless you act now",
+      "A link to a page asking for your password or card details",
+      "A sender address or web address that is slightly wrong"
+    ],
+    "whatToDo": "Do not use the link. Open the service's official app or website yourself to check your account, and change your password if you already entered it."
   }
 ]
